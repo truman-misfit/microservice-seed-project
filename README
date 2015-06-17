@@ -1,0 +1,10 @@
+Misfit Micro-Service Seed Project
+=================================
+
+This is a archetype project (or seed project) for building up micro-service in Misfit Cloud.
+
+Features
+=================================
+* BDD with cucumber
+* Documentation with Swagger
+* Message Queue encapsulated with modules
