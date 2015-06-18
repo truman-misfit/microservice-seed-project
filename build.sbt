@@ -17,7 +17,10 @@ libraryDependencies ++= Seq(
   "org.scalatest" % "scalatest_2.11" % "3.0.0-M1",
   "info.cukes" % "cucumber-scala_2.11" % "1.2.2",
   // Integrate Swagger UI with Play! 2.x
-  "com.wordnik" % "swagger-play2_2.11" % "1.3.12_play24"
+  "com.wordnik" % "swagger-play2_2.11" % "1.3.12_play24",
+  // AWS KCL and KPL
+  "com.amazonaws" % "amazon-kinesis-producer" % "0.9.0",
+  "com.amazonaws" % "amazon-kinesis-client" % "1.4.0"
 )
 
 resolvers += "Sonatype-Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"

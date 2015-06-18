@@ -4,7 +4,6 @@ import javax.inject.Inject
 
 import play.api.Logger
 import play.api.libs.json._
-import play.api.libs.mailer._
 
 import javax.jms.Message
 import javax.jms.TextMessage

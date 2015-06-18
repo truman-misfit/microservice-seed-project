@@ -1,1 +1,2 @@
-1000:com.misfit.ms.plugins.SimpleQueuePlugin
+#1000:com.misfit.ms.plugins.SimpleQueuePlugin
+1000:com.misfit.microservices.plugins.StreamPlugin
