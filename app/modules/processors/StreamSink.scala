@@ -3,6 +3,8 @@ package com.misfit.microservices.modules
 import scala.concurrent.Future
 import javax.inject._
 import java.util.UUID
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 import com.google.inject.AbstractModule
 import play.api._
 import play.api.inject.ApplicationLifecycle
@@ -53,18 +55,25 @@ class KinesisStreamSink @Inject()(lifecycle: ApplicationLifecycle) extends Strea
 		config
 	}
 
+	private lazy val kclProcessorFactory = new StreamProcessorFactory()
+
+	private lazy val worker = new Worker(kclProcessorFactory, kclConfig)
+
+	private lazy val threadPoolNumber = 5
+	private lazy val pool: ExecutorService = Executors.newFixedThreadPool(threadPoolNumber)
+
 	// release connections when app stop
 	lifecycle.addStopHook { () =>
 		Future.successful(None)
 	}
 
 	def process(): Unit = {
-		val streamProcessorFactory = new StreamProcessorFactory()
-		val worker: Worker = new Worker(streamProcessorFactory, kclConfig)
 		try {
-			worker.run()
+			pool.execute(worker)
+			Logger.info("start processor.")
 		} catch {
 			case e: Exception => {
+				pool.shutdown()
 				Logger.info("Caught throwable while processing data.", e)
 			}
 		}

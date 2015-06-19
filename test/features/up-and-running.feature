@@ -4,5 +4,5 @@ Feature: Application up and running
 
   Scenario: Seeing that the application is up and running
     Given my application is running
-    When I go to the "start" page
+    When I go to the "swagger" page
     Then I should see "Hello world!"

@@ -17,7 +17,7 @@ class StepDefinitions extends ScalaDsl with EN with Matchers {
 	val webDriverClass = Helpers.HTMLUNIT
 
 	val app = FakeApplication()
-	val port = 3333 // or whatever you want
+	val port = 9000 // or whatever you want
 
 	lazy val browser: TestBrowser = TestBrowser.of(webDriverClass, Some("http://localhost:" + port))
 	lazy val server = TestServer(port, app)
@@ -49,7 +49,7 @@ class StepDefinitions extends ScalaDsl with EN with Matchers {
 
 	When("""^I go to the "([^"]*)" page$""") { (pageName: String) =>
 	  val pageUrl = pageName match {
-	    case "start" => controllers.routes.Application.index.url
+	    case "swagger" => controllers.routes.Application.swagger.url
 	    case _ => throw new RuntimeException(s"unsupported page: $pageName")
 	  }
 	  browser.goTo(pageUrl)

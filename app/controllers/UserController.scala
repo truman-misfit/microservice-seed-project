@@ -82,29 +82,29 @@ class UserController @Inject()(topicService: TopicService) extends Controller wi
 		}
 	}
 
-	@ApiOperation(
-		nickname = "greetUser",
-		value = "Greet a new registered user",
-		notes = "Greet a new user by sending a greeting email",
-		httpMethod = "PUT")
-	@ApiResponses(Array(
-		new ApiResponse(code = 200, message = "LGTM"),
-		new ApiResponse(code = 400, message = "Invalid params"),
-		new ApiResponse(code = 404, message = "User does not exist"),
-		new ApiResponse(code = 500, message = "Internal server error")
-	))
-	def greetUser (@ApiParam(value = "greet the new user via an greeting email") @PathParam("id") id: String) = Action {
-		var retOpt = None: Option[User]
+	// @ApiOperation(
+	// 	nickname = "greetUser",
+	// 	value = "Greet a new registered user",
+	// 	notes = "Greet a new user by sending a greeting email",
+	// 	httpMethod = "PUT")
+	// @ApiResponses(Array(
+	// 	new ApiResponse(code = 200, message = "LGTM"),
+	// 	new ApiResponse(code = 400, message = "Invalid params"),
+	// 	new ApiResponse(code = 404, message = "User does not exist"),
+	// 	new ApiResponse(code = 500, message = "Internal server error")
+	// ))
+	// def greetUserWithSNS (@ApiParam(value = "greet the new user via an greeting email") @PathParam("id") id: String) = Action {
+	// 	var retOpt = None: Option[User]
 
-		// publish the message to DI service
-		topicService.publish(
-			"email", 
-			"this content may be msgpacked json which contains userid and greeting template index.")
+	// 	// publish the message to DI service
+	// 	topicService.publish(
+	// 		"email", 
+	// 		"this content may be msgpacked json which contains userid and greeting template index.")
 
-		if (retOpt.isDefined) {
-			Ok
-		} else {
-			InternalServerError
-		}
-	}
+	// 	if (retOpt.isDefined) {
+	// 		Ok
+	// 	} else {
+	// 		InternalServerError
+	// 	}
+	// }
 }
