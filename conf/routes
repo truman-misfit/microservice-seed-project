@@ -13,5 +13,5 @@ GET 	/users/:id 					@controllers.UserController.getUser(id: String)
 PUT 	/users 						@controllers.UserController.initUser
 #PUT 	/users/:id/greet			@controllers.UserController.greetUserWithSNS(id: String)
 
-GET 	/api-docs/sdc 				controllers.ApiHelpController.getResource(path="/sdc")
-PUT 	/sdc 						@controllers.SDCController.putRecords
+GET 	/api-docs/log 				controllers.ApiHelpController.getResource(path="/log")
+PUT 	/log 						@controllers.LoggingController.putRecords

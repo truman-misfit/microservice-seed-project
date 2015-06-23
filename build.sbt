@@ -19,7 +19,7 @@ libraryDependencies ++= Seq(
   // Integrate Swagger UI with Play! 2.x
   "com.wordnik" % "swagger-play2_2.11" % "1.3.12_play24",
   // AWS KCL and KPL
-  "com.amazonaws" % "amazon-kinesis-producer" % "0.9.0",
+  // "com.amazonaws" % "amazon-kinesis-producer" % "0.9.0",
   "com.amazonaws" % "amazon-kinesis-client" % "1.4.0"
 )
 

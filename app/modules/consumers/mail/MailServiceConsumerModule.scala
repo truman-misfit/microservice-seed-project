@@ -16,11 +16,7 @@ import com.amazonaws.services.kinesis.clientlibrary.lib.worker.Worker
 import com.amazonaws.services.kinesis.clientlibrary.interfaces.IRecordProcessorFactory
 import com.amazonaws.services.kinesis.clientlibrary.lib.worker.KinesisClientLibConfiguration
 
-trait StreamSink {
-	def process()
-}
-
-class FakeStreamSink @Inject()(lifecycle: ApplicationLifecycle) extends StreamSink {
+class FakeMailServiceConsumer @Inject()(lifecycle: ApplicationLifecycle) extends ServiceConsumer {
 	// release connections when app stop
 	lifecycle.addStopHook { () =>
 		Future.successful(None)
@@ -29,21 +25,21 @@ class FakeStreamSink @Inject()(lifecycle: ApplicationLifecycle) extends StreamSi
 	def process(): Unit = { }
 }
 
-class KinesisStreamSink @Inject()(lifecycle: ApplicationLifecycle) extends StreamSink {
+class KinesisMailServiceConsumer @Inject()(lifecycle: ApplicationLifecycle) extends ServiceConsumer {
 
 	def WORKER_ID: String = UUID.randomUUID.toString
 
 	private lazy val REGION_NAME = Play.current.configuration
-									.getString("module.stream.sink.region")
+									.getString("module.service.consumer.region")
 									.getOrElse("us-east-1")
 
 	private lazy val STREAM_NAME = Play.current.configuration
-									.getString("module.stream.sink.name")
-									.getOrElse("demo_stream")
+									.getString("module.service.consumer.mail.name")
+									.getOrElse("mail-service-stream-dev")
 
 	private lazy val APP_NAME = Play.current.configuration
-									.getString("module.stream.sink.app.name")
-									.getOrElse("demo_app")
+									.getString("module.service.consumer.mail.app")
+									.getOrElse("mail-service-stream-dev")
 
 	private lazy val kclConfig = {
 		val config = new KinesisClientLibConfiguration(
@@ -55,7 +51,7 @@ class KinesisStreamSink @Inject()(lifecycle: ApplicationLifecycle) extends Strea
 		config
 	}
 
-	private lazy val kclProcessorFactory = new StreamProcessorFactory()
+	private lazy val kclProcessorFactory = new MailServiceConsumerFactory()
 
 	private lazy val worker = new Worker(kclProcessorFactory, kclConfig)
 
@@ -80,26 +76,26 @@ class KinesisStreamSink @Inject()(lifecycle: ApplicationLifecycle) extends Strea
 	}
 }
 
-class StreamSinkModule(
+class MailServiceConsumerModule(
 	environment: Environment,
 	configuration: Configuration) extends AbstractModule {
 
 	def configure() = {
 		val isEnabledStreamSinkService: Boolean = 
-				configuration.getBoolean("module.stream.sink.enabled").getOrElse(false)
+				configuration.getBoolean("module.service.consumer.mail.enabled").getOrElse(false)
 		if (isEnabledStreamSinkService) {
 			val modeStreamSinkService: Option[String] = 
-					configuration.getString("module.stream.sink.mode", Some(Set("dev", "prod")))
+					configuration.getString("module.service.consumer.mail.mode", Some(Set("dev", "prod")))
 			modeStreamSinkService match {
 				case Some("dev") => {
-					bind(classOf[StreamSink])
-						.to(classOf[FakeStreamSink])
+					bind(classOf[ServiceConsumer])
+						.to(classOf[FakeMailServiceConsumer])
 						.asEagerSingleton
 					Logger.info("bind fake stream sink.")
 				}
 				case Some("prod") => {
-					bind(classOf[StreamSink])
-						.to(classOf[KinesisStreamSink])
+					bind(classOf[ServiceConsumer])
+						.to(classOf[KinesisMailServiceConsumer])
 						.asEagerSingleton
 					Logger.info("bind Kinesis stream sink.")
 				}

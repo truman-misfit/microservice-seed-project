@@ -20,26 +20,13 @@ import javax.jms.TextMessage
 import javax.jms.MessageConsumer
 import javax.jms.MessageListener
 
-import org.elasticmq.rest.sqs._
-
-import com.misfit.ms.modules.queues._
-
 object Global extends GlobalSettings {
 
-    var server: SQSRestServer = null
-
     override def onStart(app: Application) {
-        ////////////////////////////
-        // startup local elasticmq
-        // server = SQSRestServerBuilder.withPort(9325).withInterface("localhost").start()
         Logger.info("Whipper-App service has started.")
     }
 
     override def onStop(app: Application) {
-        ///////////////////////////
-        // stop the local elasticmq
-        // server.stopAndWait()
-        
         Logger.info("Whipper-App service has stopped.")
     }
 }

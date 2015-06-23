@@ -11,7 +11,7 @@ import com.amazonaws.services.kinesis.clientlibrary.interfaces.IRecordProcessor
 import com.amazonaws.services.kinesis.clientlibrary.interfaces.IRecordProcessorFactory
 import com.amazonaws.services.kinesis.clientlibrary.types.ShutdownReason
 
-class StreamProcessorFactory extends IRecordProcessorFactory {
+class MailServiceConsumerFactory extends IRecordProcessorFactory {
 
 	override def createProcessor: IRecordProcessor = {
 		Logger.info("create processor")

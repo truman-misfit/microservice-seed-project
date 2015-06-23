@@ -11,8 +11,8 @@ import play.api.mvc._
 
 import com.misfit.microservices.modules._
 
-@Api(value = "/sdc", description = "Stream collection services")
-class SDCController @Inject()(streamSource: StreamSource) extends Controller {
+@Api(value = "/log", description = "Stream collection services")
+class LoggingController @Inject()(publisher: ServicePublisher) extends Controller {
 
 	@ApiOperation(
 		nickname = "stream data collection",
@@ -38,13 +38,13 @@ class SDCController @Inject()(streamSource: StreamSource) extends Controller {
 
 		recordType match {
 			case Some("email") => {
-				streamSource.put(reqJSONByteBuffer)
+				publisher.put(reqJSONByteBuffer)
 			}
-			case Some("log") => {
-				streamSource.put(reqJSONByteBuffer)
+			case Some("notification") => {
+				publisher.put(reqJSONByteBuffer)
 			}
 			case Some("auth") => {
-				streamSource.put(reqJSONByteBuffer)
+				publisher.put(reqJSONByteBuffer)
 			}
 			case _ => {}
 		}	

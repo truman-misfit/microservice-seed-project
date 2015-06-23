@@ -19,11 +19,7 @@ import com.amazonaws.services.kinesis.AmazonKinesisClient
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain
 import com.amazonaws.services.kinesis.model.ResourceNotFoundException
 
-trait StreamSource {
-	def put(data: ByteBuffer)
-}
-
-class FakeStreamSource @Inject()(lifecycle: ApplicationLifecycle) extends StreamSource {
+class FakeMailServicePublisher @Inject()(lifecycle: ApplicationLifecycle) extends ServicePublisher {
 	// release connections when app stop
 	lifecycle.addStopHook { () =>
 		Future.successful(None)
@@ -32,17 +28,17 @@ class FakeStreamSource @Inject()(lifecycle: ApplicationLifecycle) extends Stream
 	def put(data: ByteBuffer): Unit = { }
 }
 
-class KinesisStreamSource @Inject()(lifecycle: ApplicationLifecycle) extends StreamSource {
+class KinesisMailServicePublisher @Inject()(lifecycle: ApplicationLifecycle) extends ServicePublisher {
 
 	def TIMESTAMP: String = System.currentTimeMillis().toString
 
 	private lazy val REGION_NAME = Play.current.configuration
-									.getString("module.stream.source.region")
+									.getString("module.service.producer.region")
 									.getOrElse("us-east-1")
 
 	private lazy val STREAM_NAME = Play.current.configuration
-    								.getString("module.stream.source.name")
-    								.getOrElse("demo_stream")
+    								.getString("module.service.producer.mail.name")
+    								.getOrElse("mail-service-stream-dev")
 
 	private lazy val configuration = {
 		val config = new ClientConfiguration()
@@ -99,26 +95,26 @@ class KinesisStreamSource @Inject()(lifecycle: ApplicationLifecycle) extends Str
 	}
 }
 
-class StreamSourceModule(
+class MailServicePublisherModule(
 	Environment: Environment,
 	configuration: play.api.Configuration) extends AbstractModule {
 
 	def configure() = {
 		val isEnabledStreamSourceService: Boolean =
-				configuration.getBoolean("module.stream.source.enabled").getOrElse(false)
+				configuration.getBoolean("module.service.producer.mail.enabled").getOrElse(false)
 		if (isEnabledStreamSourceService) {
 			val modeStreamSourceService: Option[String] = 
-					configuration.getString("module.stream.source.mode", Some(Set("dev", "prod")))
+					configuration.getString("module.service.producer.mail.mode", Some(Set("dev", "prod")))
 			modeStreamSourceService match {
 				case Some("dev") => {
-					bind(classOf[StreamSource])
-						.to(classOf[FakeStreamSource])
+					bind(classOf[ServicePublisher])
+						.to(classOf[FakeMailServicePublisher])
 						.asEagerSingleton
 					Logger.info("bind fake stream source.")
 				}
 				case Some("prod") => {
-					bind(classOf[StreamSource])
-						.to(classOf[KinesisStreamSource])
+					bind(classOf[ServicePublisher])
+						.to(classOf[KinesisMailServicePublisher])
 						.asEagerSingleton
 					Logger.info("bind Kinesis stream source.")
 				}
