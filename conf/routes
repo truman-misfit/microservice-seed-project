@@ -11,7 +11,7 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 GET 	/api-docs/users 			controllers.ApiHelpController.getResource(path="/users")
 GET 	/users/:id 					@controllers.UserController.getUser(id: String)
 PUT 	/users 						@controllers.UserController.initUser
-PUT 	/users/:id/greet			@controllers.UserController.greetUser(id: String)
+#PUT 	/users/:id/greet			@controllers.UserController.greetUserWithSNS(id: String)
 
-# PUT 	/users/:userid/mailing 		@controllers.UserController.mailing(userid: String)
-# GET 	/users/:userid/inbox 		@controllers.UserController.inbox(userid: String)
+GET 	/api-docs/log 				controllers.ApiHelpController.getResource(path="/log")
+PUT 	/log 						@controllers.LoggingController.putRecords

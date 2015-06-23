@@ -1,13 +1,13 @@
-package com.misfit.ms.plugins
+package com.misfit.microservices.plugins
 
 import javax.inject._
 import play.api.{Plugin, Application, Logger}
-import com.misfit.ms.modules.queues._
+import com.misfit.microservices.modules._
 
-class SimpleQueuePlugin @Inject()(queueService: QueueService) extends Plugin {
+class ServicePlugin @Inject()(consumer: ServiceConsumer) extends Plugin {
 
 	override def onStart() {
-		queueService.start
+		consumer.process()
 		Logger.info("Simple queue plugin has started.")
 	}
 
