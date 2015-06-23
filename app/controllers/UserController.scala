@@ -12,15 +12,7 @@ import play.api.libs.json._
 import models._
 import globals._
 
-import com.amazon.sqs.javamessaging.SQSConnection
-import com.amazon.sqs.javamessaging.AmazonSQSMessagingClientWrapper
-
 import javax.inject._
-import javax.jms.Queue
-import javax.jms.Session
-import javax.jms.MessageProducer
-import javax.jms.TextMessage
-
 import javax.ws.rs.{QueryParam, PathParam}
 import com.misfit.microservices.modules._
 
