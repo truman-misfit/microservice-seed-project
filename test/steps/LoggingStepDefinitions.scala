@@ -51,7 +51,7 @@ class LoggingStepDefinitions extends ScalaDsl with EN with Matchers {
 
 	When("""^I put a log request to "([^"]*)" path$""") { (path: String) =>
 		val pathUrl = path match {
-			case "log" => controllers.routes.LoggingController.putRecords.url
+			case "log" => controllers.routes.Application.pushToMailStream.url
 			case _ => throw new RuntimeException(s"unsupported page: $path")
 		}
 		// put request to the logging url
@@ -60,17 +60,11 @@ class LoggingStepDefinitions extends ScalaDsl with EN with Matchers {
 	}
 
 	Then("""^I should see http code ([^"]*) returned$""") {(expectedHttpCode: Int) =>
-		val logData = Json.obj(
-			"recordType" -> "email",
-			"recordContent" -> "this is email log"
-		)
-		Logger.info(logData.toString)
 		// http code 200 is returned
 		val response = Await.result(
 			WS.url(requestAddress)
-				.withHeaders("Content-type" -> "application/json")
 				.withRequestTimeout(10000)
-				.put(logData),
+				.get,
 			timeout.duration
 		).asInstanceOf[WSResponse]
 		response.status should be (expectedHttpCode)
