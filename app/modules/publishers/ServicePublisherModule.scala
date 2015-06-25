@@ -48,11 +48,6 @@ class KinesisServicePublisher @Inject()(lifecycle: ApplicationLifecycle) extends
 
 	def TIMESTAMP: String = System.currentTimeMillis().toString
 
-	private lazy val regionName: String = Play.current.configuration
-																	.getString("module.ms.stream.region")
-																	.getOrElse("us-east-1")
-	private lazy val streamNamesOpt = Play.current.configuration
-																			.getStringList("module.ms.publisher.registry")
 	private lazy val publisherConfig = new KinesisPublisherConfig {
 		override val regionName = Play.current.configuration
 																	.getString("module.ms.stream.region")
