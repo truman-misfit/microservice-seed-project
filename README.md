@@ -1,5 +1,5 @@
 # Misfit Micro-Service Seed Project
-![Travis-CI](https://travis-ci.org/truman-misfit/microservice-seed-project.svg?branch=develop)
+![Travis-CI](https://travis-ci.org/truman-misfit/microservice-seed-project.svg?branch=master)
 This is a archetype project (or seed project) for building up micro-service in Misfit Cloud.
 
 # Features
