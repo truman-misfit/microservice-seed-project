@@ -87,7 +87,9 @@ class KinesisServiceConsumer @Inject()(lifecycle: ApplicationLifecycle) extends 
 		} else {
 			consumersMutex.synchronized {
 				// use mutex to avoid conflict alloc&insert consumer
-				val consumer = KinesisFactory.newReceiver(service, consumerConfig, convert)
+				val consumer = KinesisFactory.newReceiver(
+					service, consumerConfig, 
+					convert, CheckpointingStrategy.AfterBatch)
 				consumersPool += (service -> consumer)
 				// register onEvent function
 			}

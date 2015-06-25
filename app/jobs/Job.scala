@@ -1,5 +1,0 @@
-package jobs
-
-object Job {
-		
-}
