@@ -74,6 +74,8 @@ Such layer will contain:
 
 Travis-CI and Coverall will be a good way to involve other developers making contributions for this seed project.
 
+Travis-CI has been added.
+
 **3. Docker Compose**
 
 Docker Compose and Activator Package integration.
