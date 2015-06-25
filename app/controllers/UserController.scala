@@ -17,7 +17,7 @@ import javax.ws.rs.{QueryParam, PathParam}
 import com.misfit.microservices.modules._
 
 @Api(value = "/users", description = "Users micro-services")
-class UserController @Inject()(publisher: ServicePublisher) extends Controller with UsersJSONTrait {
+class UserController extends Controller with UsersJSONTrait {
 
 	@ApiOperation(
 		nickname = "getUserById", 
