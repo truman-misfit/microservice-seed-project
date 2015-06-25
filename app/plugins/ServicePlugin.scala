@@ -8,11 +8,7 @@ import com.misfit.microservices.jobs._
 class ServicePlugin @Inject()(consumer: ServiceConsumerAbstract) extends Plugin {
 
 	override def onStart() {
-
-		// register all the actions before application has started
-		// consumer.register("ms.backend.stream.mail", onEvent)
-		// consumer.register("ms.backend.stream.log", onEvent)
-
+		
 		consumer.register(
 			PrintLogJob.registerService, 
 			PrintLogJob.onEvent)
