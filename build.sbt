@@ -40,6 +40,7 @@ libraryDependencies ++= Seq(
 
 resolvers += "Sonatype-Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
+resolvers += Resolver.file("Local repo", file("./lib/.ivy2/local"))(Resolver.ivyStylePatterns)
 resolvers += Resolver.mavenLocal
 
 // Play provides two styles of routers, one expects its actions to be injected, the
