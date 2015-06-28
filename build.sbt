@@ -55,6 +55,6 @@ cucumberFeaturesLocation := "./test/BDD/features"
 cucumberStepsBasePackage := "features.steps"
 
 // Coveralls token Settings
-import CoverallsPlugin.CoverallsKeys._
+import CoverallsKeys._
 
-coverallsTokenFile := "./app/resources/token.txt"
+coverallsToken := Some("uWEbteyTmnmgTLi3xJbVOidS0rgnILyiK")
