@@ -2,6 +2,7 @@
 
 [![Join the chat at https://gitter.im/truman-misfit/microservice-seed-project](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/truman-misfit/microservice-seed-project?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 ![Travis-CI](https://travis-ci.org/truman-misfit/microservice-seed-project.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/truman-misfit/microservice-seed-project/badge.svg)](https://coveralls.io/r/truman-misfit/microservice-seed-project)
 
 This is a archetype project (or seed project) for building up micro-service in Misfit Cloud.
 

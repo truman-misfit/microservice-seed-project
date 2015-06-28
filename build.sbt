@@ -50,6 +50,6 @@ resolvers += Resolver.mavenLocal
 // Play2-cucumber integration
 cucumberSettings
 
-cucumberFeaturesLocation := "./test/features"
+cucumberFeaturesLocation := "./test/BDD/features"
 
 cucumberStepsBasePackage := "features.steps"
