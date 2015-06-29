@@ -50,6 +50,11 @@ resolvers += Resolver.mavenLocal
 // Play2-cucumber integration
 cucumberSettings
 
-cucumberFeaturesLocation := "./test/features"
+cucumberFeaturesLocation := "./test/BDD/features"
 
 cucumberStepsBasePackage := "features.steps"
+
+// Coveralls token Settings
+import CoverallsKeys._
+
+coverallsToken := Some("uWEbteyTmnmgTLi3xJbVOidS0rgnILyiK")
