@@ -7,9 +7,10 @@
 This is a archetype project (or seed project) for building up micro-service in Misfit Cloud.
 
 # Features
-* BDD with cucumber
-* Documentation with Swagger
-* Message Queue encapsulated with modules
+* BDD with cucumber-jvm
+* Documentation with Swagger-API (internal)
+* Stream module with Async Kinesis Client (can be used as a Message Queue)
+* Travis-CI & Coveralls
 
 # Requirements
 * Java 1.8.0_05 or above
@@ -65,23 +66,21 @@ activator cucumber
 ```
 
 # Future
-**1. Unified resource adapter**
+**1. Unified Cache Module**
 
-A sophisticated AWS resource adapter layer should be considered in the seed project. Since our tech stack dependends on AWS resource, it is necessary to integrate the resource adapter into seed project. BTW, the credentials and the configurations sharing problems should be handled within the adapter layer in the future improvement.
+Centralized Redis or ElastiCache
 
-Such layer will contain:
-1. Unified Cache Module.
-2. Unified Data Store Accessment.
-3. Unified Asynchronous Kinesis Client.
-*4. Unified Configuration Sharing Strategy. (Maybe based on zookeeper cluster)*
+**2. Time series data storage module**
 
-**2. Travis-CI and Coverall**
-
-Travis-CI and Coverall will be a good way to involve other developers making contributions for this seed project.
+A Time series logging storage system based on DynamoDB and S3.
 
 **3. Docker Compose**
 
 Docker Compose and Activator Package integration.
+
+**4. Services Discovery**
+
+A distributive services discovery module based on Zookeeper.
 
 # Author
 truman@misfit.com
