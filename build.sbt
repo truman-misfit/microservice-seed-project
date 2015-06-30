@@ -13,6 +13,7 @@ libraryDependencies ++= Seq(
 
   // Automatically translate plain English stories to BDD test cases
   "org.scalatest" % "scalatest_2.11" % "3.0.0-M1",
+  "org.scalatestplus" % "play_2.11" % "1.4.0-M3",
   "info.cukes" % "cucumber-scala_2.11" % "1.2.2",
 
   // Integrate Swagger UI with Play! 2.x
